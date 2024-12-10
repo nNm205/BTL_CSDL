@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My WEB</title>
+    <link rel="stylesheet" href="/css/home-page.css">
+</head>
+<body>
+<div class="web_title">Hệ thống quản lí sinh viên</div>
+<div class="web_action">
+    <button id="button1">Danh sách sinh viên</button>
+    <button id="button2">Danh sách điểm</button>
+    <button id="button3">Danh sách môn học</button>
+    <button id="button4">Danh sách lớp học</button>
+</div>
+
+<div id="student-container">
+    <p id="student-table-title">Danh sách sinh viên</p>
+    <div class="search-container">
+        <select id="searchType">
+            <option value="" disabled selected></option>
+            <option value="studentID" data-placeholder="Hãy nhập mã sinh viên để tìm kiếm">Student ID</option>
+            <option value="studentName" data-placeholder="Hãy nhập tên sinh viên để tìm kiếm">Student Name</option>
+        </select>
+        <input type="text" id="searchBar" aria-live="polite" placeholder="Hãy nhập kiểu tìm kiếm">
+        <button id="search-button">Tìm kiếm</button>
+    </div>
+    <!-- Student table -->
+    <table id="student-table">
+        <thead class="table-header">
+        <tr class="table-header-row">
+            <th class="table-header-col-1">Mã Sinh Viên</th>
+            <th class="table-header-col-2">Họ Tên</th>
+            <th class="table-header-col-3">Ngày sinh</th>
+            <th class="table-header-col-4">Email</th>
+            <th class="table-header-col-5">Tùy chọn</th>
+        </tr>
+        </thead>
+        <tbody class="table-body">
+        <tr th:each="student : ${studentList}" class="table-body-row">
+            <td th:text="${student.getStudentID()}" class="table-body-col-1"></td>
+            <td th:text="${student.getStudentName()}" class="table-body-col-2"></td>
+            <td th:text="${student.getDateOfBirth()}" class="table-body-col-3"></td>
+            <td th:text="${student.getEmail()}" class="table-body-col-4"></td>
+            <td class="table-body-5">
+                <button id="editButton">Sửa</button>
+                <button id="deleteButton">Xóa</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="backButton">Back</button>
+</div>
+
+<div id="score-container">
+    <p id="score-table-title">Danh sách điểm sinh viên</p>
+    <div class="search-container">
+        <select id="searchType1">
+            <option value="" disabled selected></option>
+            <option value="studentID" data-placeholder="Hãy nhập mã sinh viên để tìm kiếm">Student ID</option>
+            <option value="studentName" data-placeholder="Hãy nhập tên sinh viên để tìm kiếm">Student Name</option>
+            <option value="subjectID" data-placeholder="Hãy nhập mã môn học để tìm kiếm">Subject ID</option>
+            <option value="subjectName" data-placeholder="Hãy nhập tên môn học để tìm kiếm">Subject Name</option>
+        </select>
+        <input type="text" id="searchBar1" aria-live="polite" placeholder="Hãy nhập kiểu tìm kiếm">
+        <button id="search-button1">Tìm kiếm</button>
+    </div>
+
+    <table id="score-table">
+        <thead class="table-header">
+        <tr class="table-header-row">
+            <th class="table-header-col-2">Mã Sinh Viên</th>
+            <th class="table-header-col-3">Họ tên</th>
+            <th class="table-header-col-4">Mã môn học</th>
+            <th class="table-header-col-5">Tên môn học</th>
+            <th class="table-header-col-5">Điểm chuyên cần</th>
+            <th class="table-header-col-6">Diểm giữa kì</th>
+            <th class="table-header-col-7">Điểm cuối kì</th>
+            <th class="table-header-col-8">Điểm trung bình</th>
+            <th class="table-header-col-8">Tùy chọn</th>
+        </tr>
+        </thead>
+        <tbody class="table-body">
+        <tr th:each="score : ${scoreList}" class="table-body-row">
+            <td th:text="${score.getStudentID()}"  class="table-body-col-1"></td>
+            <td th:text="${score.student.getStudentName()}" class="table-body-col-2"></td>
+            <td th:text="${score.getSubjectID()}" class="table-body-col-3"></td>
+            <td th:text="${score.subject.getSubjectName()}" class="table-body-col-4"></td>
+            <td th:text="${score.getDiem_cc()}" class="table-body-col-5"></td>
+            <td th:text="${score.getDiem_gk()}" class="table-body-col-6"></td>
+            <td th:text="${score.getDiem_ck()}" class="table-body-col-7"></td>
+            <td th:text="${score.getDiem_tb()}" class="table-body-col-8"></td>
+            <td class="table-body-5">
+                <button id="editButton1">Sửa</button>
+                <button id="deleteButton1">Xóa</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="backButton">Back</button>
+</div>
+
+<!-- Subject table -->
+<table id="subject-table"></table>
+
+<!-- Class table -->
+<table id="class-table"></table>
+
+<script src="/js/home-page.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

@@ -8,13 +8,13 @@
 <body>
 <div class="web_title">Hệ thống quản lí sinh viên</div>
 <div class="web_action">
-    <button id="button1">Danh sách sinh viên</button>
-    <button id="button2">Danh sách điểm</button>
+    <button id="button1" onclick="showStudentList()">Danh sách sinh viên</button>
+    <button id="button2" onclick="showScoreList()">Danh sách điểm</button>
     <button id="button3">Danh sách môn học</button>
     <button id="button4">Danh sách lớp học</button>
 </div>
 
-<div id="student-container">
+<div id="student-container" th:if="${showStudentList}">
     <p id="student-table-title">Danh sách sinh viên</p>
     <div class="search-container">
         <select id="searchType">
@@ -43,7 +43,7 @@
             <td th:text="${student.getDateOfBirth()}" class="table-body-col-3"></td>
             <td th:text="${student.getEmail()}" class="table-body-col-4"></td>
             <td class="table-body-5">
-                <button id="editButton">Sửa</button>
+                <button id="editButton" th:onclick="showEditStudentForm(${student.getStudentID()})">Sửa</button>
                 <button id="deleteButton">Xóa</button>
             </td>
         </tr>
@@ -52,7 +52,7 @@
     <button class="backButton">Back</button>
 </div>
 
-<div id="score-container">
+<div id="score-container" th:if="${showScoreList}">
     <p id="score-table-title">Danh sách điểm sinh viên</p>
     <div class="search-container">
         <select id="searchType1">
@@ -91,7 +91,7 @@
             <td th:text="${score.getDiem_ck()}" class="table-body-col-7"></td>
             <td th:text="${score.getDiem_tb()}" class="table-body-col-8"></td>
             <td class="table-body-5">
-                <button id="editButton1">Sửa</button>
+                <button id="editButton1" >Sửa</button>
                 <button id="deleteButton1">Xóa</button>
             </td>
         </tr>
@@ -105,6 +105,17 @@
 
 <!-- Class table -->
 <table id="class-table"></table>
+
+<div id="editForm-container">
+    <h3>Sửa thông tin sinh viên</h3>
+    <div class="editForm-body">
+        <span><p>Mã sinh viên: </p><input type="text" class="studentID_field"></span>
+        <span><p>Họ tên: </p><input type="text" class="studentName_field"></span>
+        <span><p>Ngày sinh: </p><input type="text" class="dateOfBirth_field"></span>
+        <span><p>Email: </p><input type="text" class="email_field"></span>
+    </div>
+    <p id="saveButton-container"><button id="saveButton">Lưu</button></p>
+</div>
 
 <script src="/js/home-page.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

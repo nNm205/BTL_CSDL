@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Information</title>
+</head>
+<body>
+<h1>Sửa thông tin sinh viên</h1>
+<form th:action="@{/updateStudent}" method="post">
+  Mã Sinh Viên<input type="text" th:value="${student.id}" name="id"><br>
+  Họ Tên: <input type="text" th:value="${student.name}" name="name"><br>
+  Ngày sinh: <input type="text" th:value="${student.date_of_birth}" name="date_of_birth"><br>
+  Email: <input type="text" th:value="student.email" name="email"><br>
+  <button type="submit">Lưu</button>
+</form>
+</body>
+</html>

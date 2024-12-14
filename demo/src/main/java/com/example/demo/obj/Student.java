@@ -8,27 +8,26 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    private long studentID;
+    private Long studentID;
 
-    @Column(name = "student_name")
+    @Column(name = "student_name", nullable = false)
     private String studentName;
 
-    @Column(name = "date_of_birth")
+    @Column(name = "date_of_birth", nullable = false)
     private String dateOfBirth;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
-    public Student() {
+    @Version
+    private Long version = 0L;
 
+    public Long getVersion() {
+        return version;
     }
 
-    public Student(long studentID, String studentName,
-                   String dateOfBirth, String email) {
-        this.studentID = studentID;
-        this.studentName = studentName;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public void setStudentName(String studentName) {
@@ -55,7 +54,7 @@ public class Student {
         return studentName;
     }
 
-    public long getStudentID() {
+    public Long getStudentID() {
         return studentID;
     }
 

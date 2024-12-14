@@ -1,123 +1,51 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>My WEB</title>
-    <link rel="stylesheet" href="/css/home-page.css">
+  <meta charset="UTF-8">
+  <title>My WEB</title>
+  <link rel="stylesheet" href="/css/home-page.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<div class="web_title">Hệ thống quản lí sinh viên</div>
-<div class="web_action">
-    <button id="button1" onclick="showStudentList()">Danh sách sinh viên</button>
-    <button id="button2" onclick="showScoreList()">Danh sách điểm</button>
-    <button id="button3">Danh sách môn học</button>
-    <button id="button4">Danh sách lớp học</button>
-</div>
+<div class="container my-3">
+  <h1 class="text-center mb-3">Danh sách sinh viên</h1>
+  <a class="btn btn-primary" href="/students">Hiển thị</a>
 
-<div id="student-container" th:if="${showStudentList}">
-    <p id="student-table-title">Danh sách sinh viên</p>
-    <div class="search-container">
-        <select id="searchType">
-            <option value="" disabled selected></option>
-            <option value="studentID" data-placeholder="Hãy nhập mã sinh viên để tìm kiếm">Student ID</option>
-            <option value="studentName" data-placeholder="Hãy nhập tên sinh viên để tìm kiếm">Student Name</option>
-        </select>
-        <input type="text" id="searchBar" aria-live="polite" placeholder="Hãy nhập kiểu tìm kiếm">
-        <button id="search-button">Tìm kiếm</button>
-    </div>
-    <!-- Student table -->
-    <table id="student-table">
-        <thead class="table-header">
-        <tr class="table-header-row">
-            <th class="table-header-col-1">Mã Sinh Viên</th>
-            <th class="table-header-col-2">Họ Tên</th>
-            <th class="table-header-col-3">Ngày sinh</th>
-            <th class="table-header-col-4">Email</th>
-            <th class="table-header-col-5">Tùy chọn</th>
-        </tr>
-        </thead>
-        <tbody class="table-body">
-        <tr th:each="student : ${studentList}" class="table-body-row">
-            <td th:text="${student.getStudentID()}" class="table-body-col-1"></td>
-            <td th:text="${student.getStudentName()}" class="table-body-col-2"></td>
-            <td th:text="${student.getDateOfBirth()}" class="table-body-col-3"></td>
-            <td th:text="${student.getEmail()}" class="table-body-col-4"></td>
-            <td class="table-body-5">
-                <button id="editButton" th:onclick="showEditStudentForm(${student.getStudentID()})">Sửa</button>
-                <button id="deleteButton">Xóa</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <button class="backButton">Back</button>
-</div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Mã Sinh Viên</th>
+      <th>Họ Tên</th>
+      <th>Ngày sinh</th>
+      <th>Email</th>
+      <th>Tùy chọn</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <tr th:each="student : ${studentList}">
+      <td th:text="${student.getStudentID()}"></td>
+      <td th:text="${student.getStudentName()}"></td>
+      <td th:text="${student.getDateOfBirth()}"></td>
+      <td th:text="${student.getEmail()}"></td>
+      <td style="white-space:nowrap">
+        <a class="btn btn-primary btn-sm"
+           th:href="@{/students/edit(id=${student.getStudentID()})}">
+          Sửa
+        </a>
 
-<div id="score-container" th:if="${showScoreList}">
-    <p id="score-table-title">Danh sách điểm sinh viên</p>
-    <div class="search-container">
-        <select id="searchType1">
-            <option value="" disabled selected></option>
-            <option value="studentID" data-placeholder="Hãy nhập mã sinh viên để tìm kiếm">Student ID</option>
-            <option value="studentName" data-placeholder="Hãy nhập tên sinh viên để tìm kiếm">Student Name</option>
-            <option value="subjectID" data-placeholder="Hãy nhập mã môn học để tìm kiếm">Subject ID</option>
-            <option value="subjectName" data-placeholder="Hãy nhập tên môn học để tìm kiếm">Subject Name</option>
-        </select>
-        <input type="text" id="searchBar1" aria-live="polite" placeholder="Hãy nhập kiểu tìm kiếm">
-        <button id="search-button1">Tìm kiếm</button>
-    </div>
-
-    <table id="score-table">
-        <thead class="table-header">
-        <tr class="table-header-row">
-            <th class="table-header-col-2">Mã Sinh Viên</th>
-            <th class="table-header-col-3">Họ tên</th>
-            <th class="table-header-col-4">Mã môn học</th>
-            <th class="table-header-col-5">Tên môn học</th>
-            <th class="table-header-col-5">Điểm chuyên cần</th>
-            <th class="table-header-col-6">Diểm giữa kì</th>
-            <th class="table-header-col-7">Điểm cuối kì</th>
-            <th class="table-header-col-8">Điểm trung bình</th>
-            <th class="table-header-col-8">Tùy chọn</th>
-        </tr>
-        </thead>
-        <tbody class="table-body">
-        <tr th:each="score : ${scoreList}" class="table-body-row">
-            <td th:text="${score.getStudentID()}"  class="table-body-col-1"></td>
-            <td th:text="${score.student.getStudentName()}" class="table-body-col-2"></td>
-            <td th:text="${score.getSubjectID()}" class="table-body-col-3"></td>
-            <td th:text="${score.subject.getSubjectName()}" class="table-body-col-4"></td>
-            <td th:text="${score.getDiem_cc()}" class="table-body-col-5"></td>
-            <td th:text="${score.getDiem_gk()}" class="table-body-col-6"></td>
-            <td th:text="${score.getDiem_ck()}" class="table-body-col-7"></td>
-            <td th:text="${score.getDiem_tb()}" class="table-body-col-8"></td>
-            <td class="table-body-5">
-                <button id="editButton1" >Sửa</button>
-                <button id="deleteButton1">Xóa</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <button class="backButton">Back</button>
-</div>
-
-<!-- Subject table -->
-<table id="subject-table"></table>
-
-<!-- Class table -->
-<table id="class-table"></table>
-
-<div id="editForm-container">
-    <h3>Sửa thông tin sinh viên</h3>
-    <div class="editForm-body">
-        <span><p>Mã sinh viên: </p><input type="text" class="studentID_field"></span>
-        <span><p>Họ tên: </p><input type="text" class="studentName_field"></span>
-        <span><p>Ngày sinh: </p><input type="text" class="dateOfBirth_field"></span>
-        <span><p>Email: </p><input type="text" class="email_field"></span>
-    </div>
-    <p id="saveButton-container"><button id="saveButton">Lưu</button></p>
+        <a class="btn btn-danger btn-sm"
+           th:href="@{/students/edit(id=${student.getStudentID()})}"
+           onclick="return confirm('Are you sure?')">
+          Xóa
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <script src="/js/home-page.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>

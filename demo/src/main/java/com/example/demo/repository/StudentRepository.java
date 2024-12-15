@@ -2,9 +2,6 @@ package com.example.demo.repository;
 
 import com.example.demo.obj.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
@@ -161,5 +158,15 @@ public class StudentRepository {
     public int getTotalStudents() {
         String query = "SELECT COUNT(*) FROM students";
         return jdbcTemplate.queryForObject(query, Integer.class);
+    }
+
+    public boolean isValidStudentID(long studentID) {
+        String query = "SELECT * FROM students WHERE student_id = ?";
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(query, studentID);
+        if (rows.next()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

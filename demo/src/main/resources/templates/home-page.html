@@ -8,39 +8,9 @@
 </head>
 <body>
 <div class="container my-3">
-  <h1 class="text-center mb-3">Danh sách sinh viên</h1>
-  <a class="btn btn-primary" href="/students">Hiển thị</a>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Mã Sinh Viên</th>
-      <th>Họ Tên</th>
-      <th>Ngày sinh</th>
-      <th>Email</th>
-      <th>Tùy chọn</th>
-    </tr>
-    </thead>
-    <tbody class="table-group-divider">
-    <tr th:each="student : ${studentList}">
-      <td th:text="${student.getStudentID()}"></td>
-      <td th:text="${student.getStudentName()}"></td>
-      <td th:text="${student.getDateOfBirth()}"></td>
-      <td th:text="${student.getEmail()}"></td>
-      <td style="white-space:nowrap">
-        <a class="btn btn-primary btn-sm"
-           th:href="@{/students/edit(id=${student.getStudentID()})}">
-          Sửa
-        </a>
-
-        <a class="btn btn-danger btn-sm"
-           th:href="@{/students/delete(id=${student.getStudentID()})}"
-           onclick="return confirm('Are you sure?')">
-          Xóa
-        </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <h1 class="text-center mb-3">Hệ thống quản lý sinh viên</h1>
+  <a class="btn btn-primary" href="/students">Danh sách sinh viên</a>
+  <a class="btn btn-primary" href="/scores/">Danh sách điểm sinh viên</a>
 </div>
 
 <script src="/js/home-page.js"></script>

@@ -43,4 +43,8 @@ public class StudentService {
     public boolean deleteStudent(Long deleteStudentID) {
         return studentRepository.deleteStudent(deleteStudentID);
     }
+
+    public boolean isValidStudentID(long studentID) {
+        return studentRepository.isValidStudentID(studentID);
+    }
 }

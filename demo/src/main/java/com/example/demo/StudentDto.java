@@ -2,8 +2,6 @@ package com.example.demo;
 
 import jakarta.validation.constraints.NotEmpty;
 
-import java.util.Date;
-
 public class StudentDto {
     @NotEmpty(message = "The student id is required")
     private String studentID;

@@ -6,23 +6,23 @@ import jakarta.persistence.*;
 @Table(name = "scores")
 public class Score {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
+    @Column(name = "student_id", nullable = false)
     private long studentID;
 
-    @Column(name = "subject_id")
+    @Id
+    @Column(name = "subject_id", nullable = false)
     private long subjectID;
 
-    @Column(name = "diem_cc")
+    @Column(name = "diem_cc", nullable = false)
     private double diem_cc;
 
-    @Column(name = "diem_gk")
+    @Column(name = "diem_gk", nullable = false)
     private double diem_gk;
 
-    @Column(name = "diem_ck")
+    @Column(name = "diem_ck", nullable = false)
     private double diem_ck;
 
-    @Column(name = "diem_tb")
+    @Column(name = "diem_tb", nullable = false)
     private double diem_tb;
 
     @ManyToOne
@@ -108,5 +108,14 @@ public class Score {
 
     public Subject getSubject() {
         return subject;
+    }
+
+    public String toString() {
+        return String.valueOf(studentID) + " "
+                + String.valueOf(subjectID) + " "
+                + String.valueOf(diem_cc) + " "
+                + String.valueOf(diem_gk) + " "
+                + String.valueOf(diem_ck) + " "
+                + String.valueOf(diem_tb) + " ";
     }
 }

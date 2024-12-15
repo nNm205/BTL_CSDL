@@ -4,15 +4,15 @@ import com.example.demo.StudentDto;
 import com.example.demo.obj.Student;
 import com.example.demo.repository.StudentRepository;
 import jakarta.validation.Valid;
-import org.hibernate.engine.jdbc.mutation.spi.BindingGroup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/students")
@@ -22,13 +22,13 @@ public class StudentController {
 
     @GetMapping({"", "/"})
     public String getStudentList(Model model) {
-        var studentList = studentRepository.findAll(Sort.by(Sort.Direction.DESC, "studentID"));
+        List<Student> studentList = studentRepository.getAllStudents();
         model.addAttribute("studentList", studentList);
         return "students/home-page";
     }
 
     @GetMapping("/create")
-    public String createStudent(Model model) {
+    public String showCreatePage(Model model) {
         StudentDto studentDto = new StudentDto();
         model.addAttribute("studentDto", studentDto);
 
@@ -36,17 +36,29 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public String createStudent(@Valid StudentDto studentDto,
-                                BindingResult bindingResult) {
-        if (studentRepository.findByStudentID(Long.parseLong(studentDto.getStudentID())) != null) {
+    public String creatStudent(
+            @Valid @ModelAttribute("studentDto") StudentDto studentDto,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+
+        if (studentRepository.findByEmail(studentDto.getEmail()) != null) {
             bindingResult.addError(
                     new FieldError("studentDto",
-                            "studentID",
+                            "email",
+                            "Email address is already in use")
+            );
+        }
+
+        Student student = new Student();
+        try {
+            student.setStudentID(Long.parseLong(studentDto.getStudentID()));
+        } catch(NumberFormatException e) {
+            bindingResult.addError(
+                    new FieldError("studentDto",
+                            "Student ID",
                             studentDto.getStudentID(),
-                            false,
-                            null,
-                            null,
-                            "Student ID is already in use")
+                            false, null, null,
+                            "Invalid Student ID format")
             );
         }
 
@@ -54,22 +66,34 @@ public class StudentController {
             return "students/create";
         }
 
-        try {
-            Student student = new Student();
-            student.setVersion(0L);
-            student.setStudentID(Long.parseLong(studentDto.getStudentID()));
-            student.setStudentName(studentDto.getStudentName());
-            student.setDateOfBirth(studentDto.getDateOfBirth());
-            student.setEmail(studentDto.getEmail());
+        student.setStudentName(studentDto.getStudentName());
+        student.setDateOfBirth(studentDto.getDateOfBirth());
+        student.setEmail(studentDto.getEmail());
 
-            studentRepository.save(student);
+        studentRepository.createStudent(student);
+        redirectAttributes.addFlashAttribute("successMessage", "Tạo sinh viên mới thành công");
+        return "redirect:/students";
+    }
+
+    @GetMapping("/edit/{studentID}")
+    public String showEditPage(
+            Model model,
+            @PathVariable Long studentID) {
+        Student student = studentRepository.findStudentByID(studentID);
+        if (student == null) {
             return "redirect:/students";
-        } catch (ObjectOptimisticLockingFailureException e) {
-            bindingResult.addError(new FieldError("studentDto",
-                    "studentID",
-                    "Data was modified by another user. Please try again."));
-            return "students/create";
         }
+
+        model.addAttribute("student", student);
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setStudentID(String.valueOf(studentID));
+        studentDto.setStudentName(student.getStudentName());
+        studentDto.setDateOfBirth(student.getDateOfBirth());
+        studentDto.setEmail(student.getEmail());
+
+        model.addAttribute("studentDto", studentDto);
+        return "students/edit";
     }
 }
 

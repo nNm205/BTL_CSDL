@@ -2,6 +2,8 @@ package com.example.demo;
 
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.Date;
+
 public class StudentDto {
     @NotEmpty(message = "The student id is required")
     private String studentID;
@@ -9,15 +11,9 @@ public class StudentDto {
     @NotEmpty(message = "The student name is required")
     private String studentName;
 
-    @NotEmpty(message = "The date of birth is required")
     private String dateOfBirth;
 
-    @NotEmpty(message = "The email is required")
     private String email;
-
-    public String getEmail() {
-        return email;
-    }
 
     public String getStudentID() {
         return studentID;
@@ -25,6 +21,10 @@ public class StudentDto {
 
     public void setStudentID(String studentID) {
         this.studentID = studentID;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {

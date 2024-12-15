@@ -2,11 +2,15 @@ package com.example.demo.obj;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
-@Table(name = "students")
+@Table(name = "students", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "student_id"),
+        @UniqueConstraint(columnNames = "email")
+})
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
     private Long studentID;
 
@@ -18,17 +22,6 @@ public class Student {
 
     @Column(name = "email", nullable = false)
     private String email;
-
-    @Version
-    private Long version = 0L;
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;

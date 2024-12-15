@@ -23,18 +23,18 @@
             </thead>
             <tbody class="table-group-divider">
             <tr th:each="student : ${studentList}">
-                <td th:text="${student.getStudentID()}"></td>
-                <td th:text="${student.getStudentName()}"></td>
-                <td th:text="${student.getDateOfBirth()}"></td>
-                <td th:text="${student.getEmail()}"></td>
+                <td th:text="${student.studentID}"></td>
+                <td th:text="${student.studentName}"></td>
+                <td th:text="${student.dateOfBirth}"></td>
+                <td th:text="${student.email}"></td>
                 <td style="white-space:nowrap">
                     <a class="btn btn-primary btn-sm"
-                            th:href="@{/students/edit(id=${student.getStudentID()})}">
+                            th:href="@{/students/edit/{studentID}(studentID=${student.studentID})}">
                         Sửa
                     </a>
 
                     <a class="btn btn-danger btn-sm"
-                            th:href="@{/students/edit(id=${student.getStudentID()})}"
+                            th:href="@{/students/edit/{studentID}(studentID=${student.studentID})}"
                             onclick="return confirm('Are you sure?')">
                         Xóa
                     </a>

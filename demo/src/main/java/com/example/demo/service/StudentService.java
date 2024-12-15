@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+/*
 @Service
 public class StudentService {
     @Autowired
@@ -26,3 +27,4 @@ public class StudentService {
         studentRepository.save(student);
     }
 }
+ */

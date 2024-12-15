@@ -10,7 +10,6 @@
 <div class="container my-3">
   <h1 class="text-center mb-3">Danh sách sinh viên</h1>
   <a class="btn btn-primary" href="/students">Hiển thị</a>
-
   <table class="table">
     <thead>
     <tr>
@@ -34,7 +33,7 @@
         </a>
 
         <a class="btn btn-danger btn-sm"
-           th:href="@{/students/edit(id=${student.getStudentID()})}"
+           th:href="@{/students/delete(id=${student.getStudentID()})}"
            onclick="return confirm('Are you sure?')">
           Xóa
         </a>

@@ -95,5 +95,40 @@ public class StudentController {
         model.addAttribute("studentDto", studentDto);
         return "students/edit";
     }
+
+    @PostMapping("/edit/{studentID}")
+    public String editStudent(Model model,
+                              @PathVariable Long studentID,
+                              @Valid @ModelAttribute("studentDto") StudentDto studentDto,
+                              RedirectAttributes redirectAttributes) {
+        Student student = studentRepository.findStudentByID(studentID);
+        if (student == null) {
+            return "redirect:/students";
+        }
+
+        student.setStudentName(studentDto.getStudentName());
+        student.setDateOfBirth(studentDto.getDateOfBirth());
+        student.setEmail(student.getEmail());
+
+        studentRepository.updateStudent(student);
+        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin sinh viên thành công!");
+        return "redirect:/students";
+    }
+
+    @GetMapping("/delete/{studentID}")
+    public String deleteStudent(@PathVariable Long studentID,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            studentRepository.deleteStudent(studentID);
+            redirectAttributes
+                    .addFlashAttribute("successMessage",
+                            "Xóa sinh viên thành công!");
+        } catch (Exception e) {
+            redirectAttributes
+                    .addFlashAttribute("errorMessage",
+                    "Không thể xóa sinh viên, vui lòng thử lại!");
+        }
+        return "redirect:/students";
+    }
 }
 

@@ -8,6 +8,12 @@
 </head>
 <body>
     <div class="container my-3">
+        <!-- Thông báo thành công -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <h1 class="text-center mb-3">Danh sách sinh viên</h1>
         <a class="btn btn-primary" href="students/create">Tạo sinh viên mới</a>
 
@@ -34,7 +40,7 @@
                     </a>
 
                     <a class="btn btn-danger btn-sm"
-                            th:href="@{/students/edit/{studentID}(studentID=${student.studentID})}"
+                            th:href="@{/students/delete/{studentID}(studentID=${student.studentID})}"
                             onclick="return confirm('Are you sure?')">
                         Xóa
                     </a>

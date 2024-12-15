@@ -131,23 +131,33 @@ public class StudentRepository {
     // update student information
     public Student updateStudent(Student currentStudent) {
         String query = "UPDATE students " +
-                "SET student_id = ?," +
-                "student_name = ?," +
+                "SET student_name = ?," +
                 "date_of_birth = ?," +
-                "email = ?";
+                "email = ?" +
+                "WHERE student_id = ?";
 
         jdbcTemplate.update(query,
-                currentStudent.getStudentID(),
                 currentStudent.getStudentName(),
                 currentStudent.getDateOfBirth(),
-                currentStudent.getEmail());
+                currentStudent.getEmail(),
+                currentStudent.getStudentID());
 
         return findStudentByID(currentStudent.getStudentID());
     }
 
     // delete student
-    public void deleteStudent(Long deleteStudentID) {
+    public boolean deleteStudent(Long deleteStudentID) {
+        if (deleteStudentID == null || deleteStudentID <= 0) {
+            throw new IllegalArgumentException("Mã sinh viên không hợp lệ");
+        }
+
         String query = "DELETE FROM students WHERE student_id = ?";
-        jdbcTemplate.update(query, deleteStudentID);
+        try {
+            int deleteSuccess = jdbcTemplate.update(query, deleteStudentID);
+            return deleteSuccess > 0;
+        } catch (NumberFormatException e) {
+            System.err.print("Lỗi khi xóa sinh viên: " + e.getMessage());
+            return false;
+        }
     }
 }

@@ -2,6 +2,9 @@ package com.example.demo.repository;
 
 import com.example.demo.obj.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
@@ -13,31 +16,6 @@ import java.util.List;
 public class StudentRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    // show all students
-    public List<Student> getAllStudents() {
-        List<Student> studentList = new ArrayList<>();
-
-        String query = "SELECT * FROM students";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query);
-
-        while (rowSet.next()) {
-            Student student = new Student();
-            try {
-                student.setStudentID(rowSet.getLong("student_id"));
-            } catch (NumberFormatException e) {
-                System.out.println("Exception: " + e.getMessage());
-            }
-
-            student.setStudentName(rowSet.getString("student_name"));
-            student.setDateOfBirth(rowSet.getString("date_of_birth"));
-            student.setEmail(rowSet.getString("email"));
-
-            studentList.add(student);
-        }
-
-        return studentList;
-    }
 
     // find student with given name
     public Student findStudentByName(String studentName) {
@@ -159,5 +137,29 @@ public class StudentRepository {
             System.err.print("Lỗi khi xóa sinh viên: " + e.getMessage());
             return false;
         }
+    }
+
+    public List<Student> getStudentsWithPagination(int pageNo, int pageSize) {
+        List<Student> studentList = new ArrayList<>();
+        int offset = (pageNo - 1) * pageSize;
+
+        String query = "SELECT * FROM students LIMIT ? OFFSET ?";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, pageSize, offset);
+
+        while (rowSet.next()) {
+            Student student = new Student();
+            student.setStudentID(rowSet.getLong("student_id"));
+            student.setStudentName(rowSet.getString("student_name"));
+            student.setDateOfBirth(rowSet.getString("date_of_birth"));
+            student.setEmail(rowSet.getString("email"));
+            studentList.add(student);
+        }
+
+        return studentList;
+    }
+
+    public int getTotalStudents() {
+        String query = "SELECT COUNT(*) FROM students";
+        return jdbcTemplate.queryForObject(query, Integer.class);
     }
 }

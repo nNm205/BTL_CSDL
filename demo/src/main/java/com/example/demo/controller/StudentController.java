@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.StudentDto;
 import com.example.demo.obj.Student;
 import com.example.demo.repository.StudentRepository;
+import com.example.demo.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +19,23 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentService studentService;
 
     @GetMapping({"", "/"})
-    public String getStudentList(Model model) {
-        List<Student> studentList = studentRepository.getAllStudents();
+    public String getStudentList(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "20") int size,
+            Model model) {
+
+        List<Student> studentList = studentService.getStudentsWithPagination(page, size);
+        int totalStudents = studentService.getTotalStudents();
+        int totalPages = (int) Math.ceil((double) totalStudents / size);
+
         model.addAttribute("studentList", studentList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+
         return "students/home-page";
     }
 
@@ -41,7 +53,7 @@ public class StudentController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
-        if (studentRepository.findByEmail(studentDto.getEmail()) != null) {
+        if (studentService.findByEmail(studentDto.getEmail()) != null) {
             bindingResult.addError(
                     new FieldError("studentDto",
                             "email",
@@ -70,7 +82,7 @@ public class StudentController {
         student.setDateOfBirth(studentDto.getDateOfBirth());
         student.setEmail(studentDto.getEmail());
 
-        studentRepository.createStudent(student);
+        studentService.createStudent(student);
         redirectAttributes.addFlashAttribute("successMessage", "Tạo sinh viên mới thành công");
         return "redirect:/students";
     }
@@ -79,7 +91,7 @@ public class StudentController {
     public String showEditPage(
             Model model,
             @PathVariable Long studentID) {
-        Student student = studentRepository.findStudentByID(studentID);
+        Student student = studentService.findStudentByID(studentID);
         if (student == null) {
             return "redirect:/students";
         }
@@ -101,7 +113,7 @@ public class StudentController {
                               @PathVariable Long studentID,
                               @Valid @ModelAttribute("studentDto") StudentDto studentDto,
                               RedirectAttributes redirectAttributes) {
-        Student student = studentRepository.findStudentByID(studentID);
+        Student student = studentService.findStudentByID(studentID);
         if (student == null) {
             return "redirect:/students";
         }
@@ -110,7 +122,7 @@ public class StudentController {
         student.setDateOfBirth(studentDto.getDateOfBirth());
         student.setEmail(student.getEmail());
 
-        studentRepository.updateStudent(student);
+        studentService.updateStudent(student);
         redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin sinh viên thành công!");
         return "redirect:/students";
     }
@@ -119,7 +131,7 @@ public class StudentController {
     public String deleteStudent(@PathVariable Long studentID,
                                 RedirectAttributes redirectAttributes) {
         try {
-            studentRepository.deleteStudent(studentID);
+            studentService.deleteStudent(studentID);
             redirectAttributes
                     .addFlashAttribute("successMessage",
                             "Xóa sinh viên thành công!");

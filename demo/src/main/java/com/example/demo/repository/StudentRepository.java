@@ -2,10 +2,12 @@ package com.example.demo.repository;
 
 import com.example.demo.obj.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +29,15 @@ public class StudentRepository {
                 System.out.println("Exception: " + e.getMessage());
             }
 
-            student.setStudentName(rows.getString("student_name"));
-            student.setDateOfBirth(rows.getString("date_of_birth"));
+            student.setStudentName(studentName);
+            student.setGender(rows.getString("gender"));
+            student.setGpa(rows.getFloat("gpa"));
+            student.setMajor(rows.getString("major"));
+            student.setCourse(rows.getString("course"));
+            student.setDateOfBirth(LocalDate.parse(rows.getString("date_of_birth")));
             student.setEmail(rows.getString("email"));
+            student.setAddress(rows.getString("address"));
+            student.setPhoneNumber(rows.getString("phone_number"));
 
             return student;
         }
@@ -45,14 +53,20 @@ public class StudentRepository {
         if (rows.next()) {
             Student student = new Student();
             try {
-                student.setStudentID(rows.getLong("student_id"));
+                student.setStudentID(studentID);
             } catch (NumberFormatException e) {
                 System.out.println("Exception: " + e.getMessage());
             }
 
             student.setStudentName(rows.getString("student_name"));
-            student.setDateOfBirth(rows.getString("date_of_birth"));
+            student.setGender(rows.getString("gender"));
+            student.setGpa(rows.getFloat("gpa"));
+            student.setMajor(rows.getString("major"));
+            student.setCourse(rows.getString("course"));
+            student.setDateOfBirth(LocalDate.parse(rows.getString("date_of_birth")));
             student.setEmail(rows.getString("email"));
+            student.setAddress(rows.getString("address"));
+            student.setPhoneNumber(rows.getString("phone_number"));
 
             return student;
         }
@@ -73,8 +87,14 @@ public class StudentRepository {
             }
 
             student.setStudentName(rows.getString("student_name"));
-            student.setDateOfBirth(rows.getString("date_of_birth"));
-            student.setEmail(rows.getString("email"));
+            student.setGender(rows.getString("gender"));
+            student.setGpa(rows.getFloat("gpa"));
+            student.setMajor(rows.getString("major"));
+            student.setCourse(rows.getString("course"));
+            student.setDateOfBirth(LocalDate.parse(rows.getString("date_of_birth")));
+            student.setEmail(email);
+            student.setAddress(rows.getString("address"));
+            student.setPhoneNumber(rows.getString("phone_number"));
 
             return student;
         }
@@ -84,20 +104,24 @@ public class StudentRepository {
 
     // create a new student
     public Student createStudent(Student newStudent) {
-        String query = "INSERT INTO students (student_id, student_name, date_of_birth, email)" +
-                "VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO students (student_id, student_name, gender, gpa, date_of_birth, " +
+                "phone_number, email, address, major, course)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         int updateSuccess = jdbcTemplate.update(query,
                 newStudent.getStudentID(),
                 newStudent.getStudentName(),
+                newStudent.getGender(),
+                newStudent.getGpa(),
                 newStudent.getDateOfBirth(),
-                newStudent.getEmail());
+                newStudent.getPhoneNumber(),
+                newStudent.getEmail(),
+                newStudent.getAddress(),
+                newStudent.getMajor(),
+                newStudent.getCourse());
 
         if (updateSuccess > 0) {
-            long studentID = jdbcTemplate.queryForObject(
-                    "SELECT LAST_INSERT_ID()",
-                    Integer.class);
-            return findStudentByID(studentID);
+            return findStudentByID(newStudent.getStudentID());
         }
 
         return null;
@@ -107,14 +131,26 @@ public class StudentRepository {
     public Student updateStudent(Student currentStudent) {
         String query = "UPDATE students " +
                 "SET student_name = ?," +
+                "gender = ?," +
+                "gpa = ?" +
                 "date_of_birth = ?," +
+                "phone_number = ?" +
                 "email = ?" +
+                "address = ?" +
+                "major = ?," +
+                "course = ?" +
                 "WHERE student_id = ?";
 
         jdbcTemplate.update(query,
                 currentStudent.getStudentName(),
+                currentStudent.getGender(),
+                currentStudent.getGpa(),
                 currentStudent.getDateOfBirth(),
+                currentStudent.getPhoneNumber(),
                 currentStudent.getEmail(),
+                currentStudent.getAddress(),
+                currentStudent.getMajor(),
+                currentStudent.getCourse(),
                 currentStudent.getStudentID());
 
         return findStudentByID(currentStudent.getStudentID());
@@ -122,10 +158,6 @@ public class StudentRepository {
 
     // delete student
     public boolean deleteStudent(Long deleteStudentID) {
-        if (deleteStudentID == null || deleteStudentID <= 0) {
-            throw new IllegalArgumentException("Mã sinh viên không hợp lệ");
-        }
-
         String query = "DELETE FROM students WHERE student_id = ?";
         try {
             int deleteSuccess = jdbcTemplate.update(query, deleteStudentID);
@@ -147,8 +179,14 @@ public class StudentRepository {
             Student student = new Student();
             student.setStudentID(rowSet.getLong("student_id"));
             student.setStudentName(rowSet.getString("student_name"));
-            student.setDateOfBirth(rowSet.getString("date_of_birth"));
+            student.setGender(rowSet.getString("gender"));
+            student.setGpa(rowSet.getFloat("gpa"));
+            student.setDateOfBirth(LocalDate.parse(rowSet.getString("date_of_birth")));
+            student.setPhoneNumber(rowSet.getString("phone_number"));
             student.setEmail(rowSet.getString("email"));
+            student.setAddress(rowSet.getString("address"));
+            student.setMajor(rowSet.getString("major"));
+            student.setCourse(rowSet.getString("course"));
             studentList.add(student);
         }
 

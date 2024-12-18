@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.StudentDto;
+import com.example.demo.Dto.StudentDto;
 import com.example.demo.obj.Student;
-import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,8 +78,14 @@ public class StudentController {
         }
 
         student.setStudentName(studentDto.getStudentName());
+        student.setGender(studentDto.getGender());
+        student.setGpa(Float.parseFloat(studentDto.getGpa()));
         student.setDateOfBirth(studentDto.getDateOfBirth());
+        student.setPhoneNumber(studentDto.getPhoneNumber());
         student.setEmail(studentDto.getEmail());
+        student.setAddress(studentDto.getAddress());
+        student.setMajor(studentDto.getMajor());
+        student.setCourse(studentDto.getCourse());
 
         studentService.createStudent(student);
         redirectAttributes.addFlashAttribute("successMessage", "Tạo sinh viên mới thành công");
@@ -101,8 +106,14 @@ public class StudentController {
         StudentDto studentDto = new StudentDto();
         studentDto.setStudentID(String.valueOf(studentID));
         studentDto.setStudentName(student.getStudentName());
+        studentDto.setGender(student.getGender() != null ? student.getGender() : "Nam");
+        studentDto.setGpa(String.valueOf(student.getGpa()));
         studentDto.setDateOfBirth(student.getDateOfBirth());
+        studentDto.setPhoneNumber(student.getPhoneNumber());
         studentDto.setEmail(student.getEmail());
+        studentDto.setAddress(student.getAddress());
+        studentDto.setMajor(student.getMajor());
+        studentDto.setCourse(student.getCourse());
 
         model.addAttribute("studentDto", studentDto);
         return "students/edit";
@@ -119,8 +130,14 @@ public class StudentController {
         }
 
         student.setStudentName(studentDto.getStudentName());
+        student.setGender(studentDto.getGender());
+        student.setGpa(Float.parseFloat(studentDto.getGpa()));
         student.setDateOfBirth(studentDto.getDateOfBirth());
-        student.setEmail(student.getEmail());
+        student.setPhoneNumber(studentDto.getPhoneNumber());
+        student.setEmail(studentDto.getEmail());
+        student.setAddress(studentDto.getAddress());
+        student.setMajor(studentDto.getMajor());
+        student.setCourse(studentDto.getCourse());
 
         studentService.updateStudent(student);
         redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin sinh viên thành công!");

@@ -10,43 +10,60 @@
 <div class="container py-3">
   <div class="row">
     <div class="col-md-8 mx-auto rounded border p-4 m-4">
-      <h2 class="text-center mb-5">Sửa thông tin sinh viên</h2>
+      <h2 class="text-center mb-5">Sửa thông tin điểm sinh viên</h2>
 
-      <form method="post" th:object="${studentDto}">
+      <form method="post" th:object="${scoreDto}">
         <div class="row mb-3">
-          <label class="col-sm-4 col-form-label">Mã sinh viên:</label>
+          <label class="col-sm-4 col-form-label">Mã Sinh Viên:</label>
           <div class="col-sm-8">
-            <input class="form-control-plaintext" readonly th:value="${studentDto.studentID}">
+            <input class="form-control-plaintext" readonly th:value="${scoreDto.studentID}">
           </div>
         </div>
 
         <div class="row mb-3">
-          <label class="col-sm-4 col-form-label">Họ tên:</label>
+          <label class="col-sm-4 col-form-label">Mã Môn Học:</label>
           <div class="col-sm-8">
-            <input class="form-control" th:field="${studentDto.studentName}">
-            <p th:if="${#fields.hasErrors('studentName')}"
-               th:errorclass="text-danger"
-               th:errors="${studentDto.studentName}"></p>
+            <input class="form-control-plaintext" readonly th:value="${scoreDto.subjectID}">
           </div>
         </div>
 
         <div class="row mb-3">
-          <label class="col-sm-4 col-form-label">Ngày sinh:</label>
+          <label class="col-sm-4 col-form-label">Điểm Chuyên Cần:</label>
           <div class="col-sm-8">
-            <input class="form-control" th:field="${studentDto.dateOfBirth}">
-            <p th:if="${#fields.hasErrors('dateOfBirth')}"
+            <input class="form-control" th:field="${scoreDto.diem_cc}">
+            <p th:if="${#fields.hasErrors('diem_cc')}"
                th:errorclass="text-danger"
-               th:errors="${studentDto.dateOfBirth}"></p>
+               th:errors="${scoreDto.diem_cc}"></p>
           </div>
         </div>
 
         <div class="row mb-3">
-          <label class="col-sm-4 col-form-label">Email:</label>
+          <label class="col-sm-4 col-form-label">Điểm Giữa Kì:</label>
           <div class="col-sm-8">
-            <input class="form-control" th:field="${studentDto.email}">
-            <p th:if="${#fields.hasErrors('email')}"
+            <input class="form-control" th:field="${scoreDto.diem_gk}">
+            <p th:if="${#fields.hasErrors('diem_gk')}"
                th:errorclass="text-danger"
-               th:errors="${studentDto.email}"></p>
+               th:errors="${scoreDto.diem_gk}"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Điểm Cuối Kì:</label>
+          <div class="col-sm-8">
+            <input class="form-control" th:field="${scoreDto.diem_ck}">
+            <p th:if="${#fields.hasErrors('diem_ck')}"
+               th:errorclass="text-danger"
+               th:errors="${scoreDto.diem_ck}"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Điểm Tổng Kết:</label>
+          <div class="col-sm-8">
+            <input class="form-control" th:field="${scoreDto.diem_tb}">
+            <p th:if="${#fields.hasErrors('diem_tb')}"
+               th:errorclass="text-danger"
+               th:errors="${scoreDto.diem_tb}"></p>
           </div>
         </div>
 
@@ -55,7 +72,7 @@
             <button type="submit" class="btn btn-primary">Lưu</button>
           </div>
           <div class="col-sm-4 d-grid">
-            <a class="btn btn-outline-primary" href="/students">Hủy</a>
+            <a class="btn btn-outline-primary" href="/scores">Hủy</a>
           </div>
         </div>
       </form>

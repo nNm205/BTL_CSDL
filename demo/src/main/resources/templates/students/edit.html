@@ -31,12 +31,48 @@
                     </div>
 
                     <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">GPA tích lũy:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" th:field="${studentDto.gpa}">
+                            <p th:if="${#fields.hasErrors('gpa')}"
+                               th:errorclass="text-danger"
+                               th:errors="${studentDto.gpa}"></p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-4 form-label">Giới Tính:</label>
+                        <div class="col-sm-8">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="male" name="gender" value="Nam" th:checked="${studentDto.gender == 'Nam'}">
+                                <label class="form-check-label" for="male">Nam</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="female" name="gender" value="Nữ" th:checked="${studentDto.gender == 'Nữ'}">
+                                <label class="form-check-label" for="female">Nữ</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Ngày sinh:</label>
                         <div class="col-sm-8">
-                            <input class="form-control" th:field="${studentDto.dateOfBirth}">
+                            <input type="date" class="form-control" th:field="${studentDto.dateOfBirth}">
                             <p th:if="${#fields.hasErrors('dateOfBirth')}"
                                th:errorclass="text-danger"
                                th:errors="${studentDto.dateOfBirth}"></p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">SĐT:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" th:field="${studentDto.phoneNumber}">
+                            <p th:if="${#fields.hasErrors('phoneNumber')}"
+                               th:errorclass="text-danger"
+                               th:errors="${studentDto.phoneNumber}"></p>
                         </div>
                     </div>
 
@@ -47,6 +83,61 @@
                             <p th:if="${#fields.hasErrors('email')}"
                                th:errorclass="text-danger"
                                th:errors="${studentDto.email}"></p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Địa chỉ:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" th:field="${studentDto.address}">
+                            <p th:if="${#fields.hasErrors('address')}"
+                               th:errorclass="text-danger"
+                               th:errors="${studentDto.address}"></p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="major" class="col-sm-4 col-form-label">Ngành Học:</label>
+                        <div class="col-sm-8">
+                            <select class="form-select" id="major" name="major" required>
+                                <option value="" disabled th:if="${studentDto.major == null}">
+                                    -- Chọn Ngành Học --
+                                </option>
+                                <option value="CN1 - Công Nghệ Thông Tin" th:selected="${studentDto.major == 'CN1 - Công Nghệ Thông Tin'}">
+                                    CN1 - Công Nghệ Thông Tin
+                                </option>
+                                <option value="CN2 - Kỹ Thuật Máy Tính" th:selected="${studentDto.major == 'CN2 - Kỹ Thuật Máy Tính'}">
+                                    CN2 -  Kỹ Thuật Máy Tính
+                                </option>
+                                <option value="CN3 - Vật Lý Kỹ Thuật" th:selected="${studentDto.major == 'CN3 - Vật Lý Kỹ Thuật'}">
+                                    CN3 - Vật Lý Kỹ Thuật
+                                </option>
+                                <option value="CN7 - Công Nghệ Hàng Không Vũ Trụ" th:selected="${studentDto.major == 'CN7 - Công Nghệ Hàng Không Vũ Trụ'}">
+                                    CN7 - Công Nghệ Hàng Không Vũ Trụ
+                                </option>
+                                <option value="CN8 - Khoa Học Máy Tính" th:selected="${studentDto.major == 'CN8 - Khoa Học Máy Tính'}">
+                                    CN8 - Khoa Học Máy Tính
+                                </option>
+                                <option value="CN10 - Công Nghệ Nông Nghiệp" th:selected="${studentDto.major == 'CN10 - Công Nghệ Nông Nghiệp'}">
+                                    CN10 - Công Nghệ Nông Nghiệp
+                                </option>
+                                <option value="CN11 - Kỹ Thuật Điều Khiển và Tự Động Hóa" th:selected="${studentDto.major == 'CN11 - Kỹ Thuật Điều Khiển và Tự Động Hóa'}">
+                                    CN11 - Kỹ Thuật Điều Khiển và Tự Động Hóa
+                                </option>
+                                <option value="CN12 - Trí Tuệ Nhân Tạo" th:selected="${studentDto.major == 'CN12 - Trí Tuệ Nhân Tạo'}">
+                                    CN12 - Trí Tuệ Nhân Tạo
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Niên Khóa:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" th:field="${studentDto.course}">
+                            <p th:if="${#fields.hasErrors('course')}"
+                               th:errorclass="text-danger"
+                               th:errors="${studentDto.course}"></p>
                         </div>
                     </div>
 

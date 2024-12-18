@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.repository.ScoreRepository;
-import com.example.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.obj.Score;
@@ -30,5 +29,17 @@ public class ScoreService {
 
     public boolean isValidStudent(long studentID) {
         return scoreRepository.isValidStudent(studentID);
+    }
+
+    public Score getScoreByStudentIDAndSubjectID(long studentID, long subjectID) {
+        return scoreRepository.getScoreByStudentIDAndSubjectID(studentID, subjectID);
+    }
+
+    public Score updateScore(Score currentScore) {
+        return scoreRepository.updateScore(currentScore);
+    }
+
+    public boolean deleteScore(Score score) {
+        return scoreRepository.deleteScore(score);
     }
 }

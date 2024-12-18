@@ -38,11 +38,14 @@
             <td th:text="${score.diem_ck}"></td>
             <td th:text="${score.diem_tb}"></td>
             <td style="white-space:nowrap">
-                <a class="btn btn-primary btn-sm">
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{/scores/edit/{studentID}/{subjectID}(studentID=${score.studentID}, subjectID=${score.subjectID})}">
                     Sửa
                 </a>
 
+
                 <a class="btn btn-danger btn-sm"
+                   th:href="@{/scores/delete/{studentID}/{subjectID}(studentID=${score.studentID}, subjectID=${score.subjectID})}"
                    onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
                     Xóa
                 </a>

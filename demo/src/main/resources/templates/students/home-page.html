@@ -14,25 +14,32 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <h1 class="text-center mb-3">Danh sách sinh viên</h1>
-        <a class="btn btn-primary" href="students/create">Tạo sinh viên mới</a>
+        <h1 class="text-center mb-4">Danh sách sinh viên</h1>
 
-        <table class="table">
-            <thead>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <a class="btn btn-primary btn-lg" href="students/create">
+                <i class="bi bi-person-plus"></i> Tạo Sinh Viên Mới
+            </a>
+        </div>
+
+        <table class="table table-striped table-hover text-center">
+            <thead class="table-dark">
             <tr>
                 <th>Mã Sinh Viên</th>
                 <th>Họ Tên</th>
-                <th>Ngày sinh</th>
-                <th>Email</th>
-                <th>Tùy chọn</th>
+                <th>Ngành Học</th>
+                <th>Niên Khóa</th>
+                <th>GPA tích lũy</th>
+                <th>Tùy Chọn</th>
             </tr>
             </thead>
             <tbody class="table-group-divider">
             <tr th:each="student : ${studentList}">
                 <td th:text="${student.studentID}"></td>
                 <td th:text="${student.studentName}"></td>
-                <td th:text="${student.dateOfBirth}"></td>
-                <td th:text="${student.email}"></td>
+                <td th:text="${student.major}"></td>
+                <td th:text="${student.course}"></td>
+                <td th:text="${student.gpa}"></td>
                 <td style="white-space:nowrap">
                     <a class="btn btn-primary btn-sm"
                             th:href="@{/students/edit/{studentID}(studentID=${student.studentID})}">

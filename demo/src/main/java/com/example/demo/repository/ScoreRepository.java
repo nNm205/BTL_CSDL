@@ -30,7 +30,6 @@ public class ScoreRepository {
             score.setDiem_ck(rows.getDouble("diem_ck"));
             score.setDiem_tb(rows.getDouble("diem_tb"));
 
-            System.out.println(score.toString());
             scoreList.add(score);
         }
 
@@ -55,6 +54,26 @@ public class ScoreRepository {
         }
 
         // if not found any student with given id
+        return null;
+    }
+
+    public Score getScoreByStudentIDAndSubjectID(long studentID, long subjectID) {
+        String query = "SELECT * FROM scores WHERE student_id = ? AND subject_id = ?";
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(query, studentID, subjectID);
+
+        if (rows.next()) {
+            Score score = new Score();
+            score.setStudentID(studentID);
+            score.setSubjectID(rows.getLong("subject_id"));
+            score.setDiem_cc(rows.getDouble("diem_cc"));
+            score.setDiem_gk(rows.getDouble("diem_gk"));
+            score.setDiem_ck(rows.getDouble("diem_ck"));
+            score.setDiem_tb(rows.getDouble("diem_tb"));
+
+            return score;
+        }
+
+        // if not found any student with given student id and given subject id
         return null;
     }
 
@@ -116,6 +135,36 @@ public class ScoreRepository {
         if (rows.next()) {
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public Score updateScore(Score currentScore) {
+        String query = "UPDATE scores " +
+                "SET diem_cc = ?," +
+                "diem_gk = ?," +
+                "diem_ck = ?," +
+                "diem_tb = ?" +
+                "WHERE student_id = ? AND subject_id = ?";
+        jdbcTemplate.update(query,
+                currentScore.getDiem_cc(),
+                currentScore.getDiem_gk(),
+                currentScore.getDiem_ck(),
+                currentScore.getDiem_tb(),
+                currentScore.getStudentID(),
+                currentScore.getSubjectID());
+        return getScoreByStudentIDAndSubjectID(currentScore.getStudentID(), currentScore.getSubjectID());
+    }
+
+    public boolean deleteScore(Score score) {
+        String query = "DELETE FROM scores WHERE student_id = ? AND subject_id = ?";
+        try {
+            int deleteSuccess = jdbcTemplate.update(query, score.getStudentID(), score.getSubjectID());
+            return deleteSuccess > 0;
+        } catch (Exception e) {
+            System.err.println("Lỗi xảy ra khi xóa dữ liệu điểm của sinh viên có mã sinh viên là"
+                    + score.getSubjectID() + " ở môn học có mã môn học là "
+                    + score.getSubjectID() + ": " + e.getMessage());
             return false;
         }
     }

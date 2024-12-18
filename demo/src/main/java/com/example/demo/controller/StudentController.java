@@ -129,6 +129,7 @@ public class StudentController {
             return "redirect:/students";
         }
 
+        System.out.println(studentDto.toString());
         student.setStudentName(studentDto.getStudentName());
         student.setGender(studentDto.getGender());
         student.setGpa(Float.parseFloat(studentDto.getGpa()));

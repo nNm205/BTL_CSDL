@@ -1,29 +1,39 @@
 package com.example.demo.Dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
 
 public class StudentDto {
     @NotEmpty(message = "student id field is required")
     private String studentID;
+
     @NotEmpty(message = "student name field is required")
     private String studentName;
+
     @NotEmpty(message = "gender field is required")
     private String gender;
+
     @NotEmpty(message = "address field is required")
     private String address;
+
     @NotEmpty(message = "phone number field is required")
     private String phoneNumber;
-    @NotNull(message = "date of birth field is required")
+
+    @NotNull(message = "date of birth is required")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+
     @NotEmpty(message = "email field is required")
     private String email;
+
     @NotEmpty(message = "gpa field is required")
     private String gpa;
+
     @NotEmpty(message = "major field is required")
     private String major;
+
     @NotEmpty(message = "course field is required")
     private String course;
 
@@ -105,5 +115,9 @@ public class StudentDto {
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;
+    }
+
+    public String toString() {
+        return studentID + " " + studentName + " " + gender + " " + address + " " + phoneNumber + " " + email + " " + gpa + " " + major + " " + course;
     }
 }

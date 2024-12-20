@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
-    @GetMapping("/home-page")
+    @GetMapping("/")
     public String homePage() {
-        return "home-page";
+        return "admin-home-page";
     }
 
-    @GetMapping("/")
+    @GetMapping("/log-in")
     public String loginPage() {
         return "log-in";
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/sign-up")
     public String signupPage() {
         return "sign-up";
     }
@@ -28,26 +28,8 @@ public class MainController {
         return "change-password";
     }
 
-    /*
-    @PostMapping("/login")
-    public String login(@RequestParam String username,
-                        @RequestParam String password,
-                        @RequestParam String role,
-                        Model model) {
-        if (role.equals("admin")) {
-            if (username.equals("admin") && password.equals("nnm210905")) {
-                return "home-page";
-            } else {
-                model.addAttribute("error", "Username hoặc Password không đúng. Vui lòng thử lại!!!");
-            }
-        } else if (role.equals("user")) {
-            if (username.equals("user") && password.equals("user123@")) {
-                return "home-page";
-            } else {
-                model.addAttribute("error", "Username hoặc Password không đúng. Vui lòng thử lại!!!");
-            }
-        }
-        return "log-in";
+    @PostMapping("/log-in")
+    public String login() {
+        return "admin-home-page";
     }
-     */
 }

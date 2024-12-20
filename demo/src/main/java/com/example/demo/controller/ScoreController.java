@@ -23,9 +23,20 @@ public class ScoreController {
     private ScoreRepository scoreRepository;
 
     @GetMapping({"", "/"})
-    public String getScoreList(Model model) {
-        List<Score> scoreList = scoreService.getAllScores();
+    public String getScoreList(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "20") int size,
+            Model model) {
+
+        List<Score> scoreList = scoreService.getScoresWithPagination(page, size);
+        int totalScores = scoreService.getTotalScores();
+        int totalPages = (int) Math.ceil((double) totalScores / size);
+
         model.addAttribute("scoreList", scoreList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+
         return "scores/score-list";
     }
 

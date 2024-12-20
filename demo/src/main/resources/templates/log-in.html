@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đăng Nhập</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 <div class="container py-5">
@@ -14,16 +14,17 @@
         <div class="card-header bg-primary text-white text-center">
           <h3>Đăng Nhập</h3>
         </div>
+
         <div class="card-body">
-          <form method="post" action="/login">
-            <!-- Trường chọn loại tài khoản -->
+          <form method="post" action="/log-in">
             <div class="mb-3">
               <label class="form-label">Loại tài khoản</label>
               <div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="role" id="userRole" value="user" required>
-                  <label class="form-check-label" for="userRole">Người dùng</label>
+                  <input class="form-check-input" type="radio" name="role" id="studentRole" value="student" required>
+                  <label class="form-check-label" for="studentRole">Sinh Viên</label>
                 </div>
+
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="role" id="adminRole" value="admin" required>
                   <label class="form-check-label" for="adminRole">Quản trị viên</label>
@@ -34,22 +35,23 @@
 
             <div class="mb-3">
               <label for="studentID" class="form-label">Mã Sinh Viên</label>
-              <input type="text" class="form-control" id="studentID" name="studentID" placeholder="Nhập mã sinh viên" required>
+              <input type="text" class="form-control" id="studentID" name="studentID" placeholder="Nhập mã sinh viên" required autofocus>
             </div>
 
             <div class="mb-3">
               <label for="password" class="form-label">Mật khẩu</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required autocomplete="off">
             </div>
 
-            <!-- Nút đăng nhập -->
+
             <div class="d-grid">
-              <a class="btn btn-primary"><i class="bi bi-x-circle"></i> Đăng Nhập</a>
+              <button type="submit" class="btn btn-primary">Đăng Nhập</button>
             </div>
           </form>
         </div>
+
         <div class="card-footer text-center">
-          <p class="mb-0">Chưa có tài khoản? <a href="/signup" class="text-primary">Đăng ký</a></p>
+          <p class="mb-0">Chưa có tài khoản? <a href="/sign-up" class="text-primary">Đăng ký</a></p>
           <p class="mb-0"><a href="/change-password" class="text-secondary">Quên mật khẩu?</a></p>
         </div>
       </div>

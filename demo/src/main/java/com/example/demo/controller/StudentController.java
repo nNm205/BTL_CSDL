@@ -24,18 +24,28 @@ public class StudentController {
     public String getStudentList(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "20") int size,
+            @RequestParam(value = "ajax", required = false) Boolean isAjax,
             Model model) {
+        if (page <= 0) {
+            page = 1;
+        }
+        if (size <= 0) {
+            size = 20;
+        }
 
         List<Student> studentList = studentService.getStudentsWithPagination(page, size);
         int totalStudents = studentService.getTotalStudents();
         int totalPages = (int) Math.ceil((double) totalStudents / size);
+        if (totalPages == 0) {
+            totalPages = 1;
+        }
 
         model.addAttribute("studentList", studentList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("pageSize", size);
 
-        return "students/home-page";
+        return "students/student-list";
     }
 
     @GetMapping("/create")
@@ -43,7 +53,7 @@ public class StudentController {
         StudentDto studentDto = new StudentDto();
         model.addAttribute("studentDto", studentDto);
 
-        return "students/create";
+        return "/students/create";
     }
 
     @PostMapping("/create")
@@ -74,7 +84,7 @@ public class StudentController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "students/create";
+            return "/students/create";
         }
 
         student.setStudentName(studentDto.getStudentName());
@@ -116,7 +126,7 @@ public class StudentController {
         studentDto.setCourse(student.getCourse());
 
         model.addAttribute("studentDto", studentDto);
-        return "students/edit";
+        return "/students/edit";
     }
 
     @PostMapping("/edit/{studentID}")

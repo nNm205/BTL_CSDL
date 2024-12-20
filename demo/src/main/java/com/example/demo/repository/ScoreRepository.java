@@ -1,11 +1,13 @@
 package com.example.demo.repository;
 
 import com.example.demo.obj.Score;
+import com.example.demo.obj.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -167,5 +169,31 @@ public class ScoreRepository {
                     + score.getSubjectID() + ": " + e.getMessage());
             return false;
         }
+    }
+
+    public List<Score> getScoresWithPagination(int pageNo, int pageSize) {
+        List<Score> scoreList = new ArrayList<>();
+        int offset = (pageNo - 1) * pageSize;
+
+        String query = "SELECT * FROM scores LIMIT ? OFFSET ?";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, pageSize, offset);
+
+        while (rowSet.next()) {
+            Score score = new Score();
+            score.setStudentID(rowSet.getLong("student_id"));
+            score.setSubjectID(rowSet.getLong("subject_id"));
+            score.setDiem_cc(Double.parseDouble(rowSet.getString("diem_cc")));
+            score.setDiem_gk(Double.parseDouble(rowSet.getString("diem_gk")));
+            score.setDiem_ck(Double.parseDouble(rowSet.getString("diem_ck")));
+            score.setDiem_tb(Double.parseDouble(rowSet.getString("diem_tb")));
+            scoreList.add(score);
+        }
+
+        return scoreList;
+    }
+
+    public int getTotalScores() {
+        String query = "SELECT COUNT(*) FROM scores";
+        return jdbcTemplate.queryForObject(query, Integer.class);
     }
 }

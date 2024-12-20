@@ -56,25 +56,21 @@
             </tbody>
         </table>
 
-        <!-- Phân trang -->
-        <nav aria-label="Pagination">
-            <ul class="pagination justify-content-center">
-                <!-- Trang trước -->
-                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                    <a class="page-link" th:href="@{/students(page=${currentPage - 1}, size=${pageSize})}" tabindex="-1">&laquo; Trang Trước</a>
-                </li>
-
-                <!-- Danh sách số trang -->
-                <li class="page-item" th:each="page : ${#numbers.sequence(1, totalPages)}" th:classappend="${page == currentPage} ? 'active'">
-                    <a class="page-link" th:href="@{/students(page=${page}, size=${pageSize})}" th:text="${page}"></a>
-                </li>
-
-                <!-- Trang tiếp theo -->
-                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-                    <a class="page-link" th:href="@{/students(page=${currentPage + 1}, size=${pageSize})}">Trang Tiếp &raquo;</a>
-                </li>
-            </ul>
-        </nav>
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Pagination">
+                <ul class="pagination mb-0">
+                    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                        <a class="page-link" th:href="@{/students(page=${currentPage - 1}, size=${pageSize})}" tabindex="-1">&laquo; Trang Trước</a>
+                    </li>
+                    <li class="page-item" th:each="page : ${#numbers.sequence(1, totalPages)}" th:classappend="${page == currentPage} ? 'active'">
+                        <a class="page-link" th:href="@{/students(page=${page}, size=${pageSize})}" th:text="${page}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                        <a class="page-link" th:href="@{/students(page=${currentPage + 1}, size=${pageSize})}">Trang Tiếp &raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <script src="/js/home-page.js"></script>

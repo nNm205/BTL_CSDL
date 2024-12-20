@@ -1,9 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.obj.Student;
 import com.example.demo.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 import com.example.demo.obj.Score;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,5 +46,13 @@ public class ScoreService {
 
     public boolean deleteScore(Score score) {
         return scoreRepository.deleteScore(score);
+    }
+
+    public List<Score> getScoresWithPagination(int pageNo, int pageSize) {
+        return scoreRepository.getScoresWithPagination(pageNo, pageSize);
+    }
+
+    public int getTotalScores() {
+        return scoreRepository.getTotalScores();
     }
 }

@@ -31,11 +31,23 @@
 <h4>Cơ sở dữ liệu sử dụng</h4>
 <img src="https://github.com/user-attachments/assets/a1eecac6-de7b-49f8-9667-e83445321afb" alt="database_image">
 
-## 🚀 Cách Chạy Ứng Dụng
-<p>1. Clone Project</p>
+## Cách Chạy Trang Web
+### 1. Clone Dự Án
 ```bash
-git clone https://github.com/nNm205/BTL_CSDL.git 
+git clone https://github.com/nNm205/BTL_CSDL.git
 cd <repo>
+```
+
+### 2. Cài đặt Dependencies sử dụng Maven để cài đặt tất cả các dependencies
+```bash
+mvn install
+```
+
+### 3. Chạy và xem trang Web
+```bash
+- Run file DemoApplication.java để chạy trang web
+- Xem trang web tại địa chỉ: localhost:8080
+```
 
 <h4>Tài Khoản Admin</h4>
 <p>- Username: admin</p>

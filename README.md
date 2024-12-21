@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/58ad397c-ec2c-4952-a2fd-09e27c7ee462)<h2>Hệ Thống Quản Lý Sinh Viên</h2>
+<h2>Hệ Thống Quản Lý Sinh Viên</h2>
 
 <h4>Người thực hiện</h4>
 <p>- Họ tên sinh Viên: Nguyễn Nhật Minh</p>
@@ -22,7 +22,7 @@
 </ul>
 
 <h4>Cơ sở dữ liệu sử dụng</h4>
-<img src="![image](https://github.com/user-attachments/assets/a1eecac6-de7b-49f8-9667-e83445321afb)" alt="database_image">
+<img src="https://github.com/user-attachments/assets/a1eecac6-de7b-49f8-9667-e83445321afb" alt="database_image">
 
 <h4>Link Trang web: </h4>
 

@@ -15,11 +15,9 @@
 </ul>
 
 <h4>Công cụ đã sử dụng: </h4>
-<ul>
-  <li></li>
-  <li></li>
-  <li></li>
-</ul>
+<p>- </p>
+<p>- </p>
+<p>- </p>
 
 <h4>Cơ sở dữ liệu sử dụng</h4>
 <img src="https://github.com/user-attachments/assets/a1eecac6-de7b-49f8-9667-e83445321afb" alt="database_image">
@@ -31,7 +29,5 @@
 <p>- Password: admin</p>
 
 <h4>Những cải tiến sau này cho trang web</h4>
-<ul>
-  <li>Xây dựng giao diện và chức năng cho trang User</li>
-  <li>Xây dựng trang Admin thêm chức năng sau: quản lý lịch thi, học phí và cảnh báo học vụ</li>
-</ul>
+<p>- Xây dựng giao diện và chức năng cho trang User</p>
+<p>- Xây dựng trang Admin thêm chức năng sau: quản lý lịch thi, học phí và cảnh báo học vụ</p>

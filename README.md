@@ -31,11 +31,11 @@
 <h4>Cơ sở dữ liệu sử dụng</h4>
 <img src="https://github.com/user-attachments/assets/a1eecac6-de7b-49f8-9667-e83445321afb" alt="database_image">
 
-<h4>Cách Chạy Ứng Dụng: </h4>
+## 🚀 Cách Chạy Ứng Dụng
 <p>1. Clone Project</p>
 ```bash
-    git clone https://github.com/nNm205/BTL_CSDL.git 
-    cd <repo>
+git clone https://github.com/nNm205/BTL_CSDL.git 
+cd <repo>
 
 <h4>Tài Khoản Admin</h4>
 <p>- Username: admin</p>

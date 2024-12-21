@@ -14,7 +14,16 @@
   <li>Đăng xuất</li>
 </ul>
 
+<h4>Công cụ đã sử dụng: </h4>
+<ul>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
 <h4>Cơ sở dữ liệu sử dụng</h4>
+
+<h4>Link Trang web: </h4>
 
 <h4>Tài Khoản Admin</h4>
 <p>- Username: admin</p>

@@ -6,10 +6,12 @@
 <h4>Mô tả</h4>
 <p>- Trang Web hiện tại mới chỉ xây dựng phần giao diện và chức năng cho trang Admin</p>
 <p>- Các chức năng hiện có của trang Admin gồm: </p>
-<p>    + Xem danh sách sinh viên hiện có trên hệ thống</p>
-<p>    + Xem danh sách điểm của sinh viên có trên hệ thống</p>
-<p>    + Đăng nhập</p>
-<p>    +  Đăng xuất</p>
+<ul>
+  <li>+ Xem danh sách sinh viên hiện có trên hệ thống</li>
+  <li>+ Xem danh sách điểm của sinh viên có trên hệ thống</li>
+  <li>+ Đăng nhập</li>
+  <li>+ Đăng xuất</li>
+</ul>
 
 <h4>Tài Khoản Admin</h4>
 <p style="margin-left: 20px;">Username: admin</p>

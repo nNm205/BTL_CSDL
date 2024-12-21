@@ -1,4 +1,5 @@
 <h2>Hệ Thống Quản Lý Sinh Viên</h2>
+
 <h4>Người thực hiện</h4>
 <p>- Họ tên sinh Viên: Nguyễn Nhật Minh</p>
 <p>- Mã sinh viên: 23021631</p>
@@ -13,6 +14,14 @@
   <li>Đăng xuất</li>
 </ul>
 
+<h4>Cơ sở dữ liệu sử dụng</h4>
+
 <h4>Tài Khoản Admin</h4>
-<p style="margin-left: 20px;">Username: admin</p>
-<p style="margin-left: 20px;">Password: admin</p>
+<p>- Username: admin</p>
+<p>- Password: admin</p>
+
+<h4>Những cải tiến cho trang web</h4>
+<ul>
+  <li>Xây dựng giao diện và chức năng cho trang User</li>
+  <li>Xây dựng trang Admin thêm chức năng sau: quản lý lịch thi, học phí và cảnh báo học vụ</li>
+</ul>

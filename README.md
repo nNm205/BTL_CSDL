@@ -22,7 +22,7 @@
 </ul>
 
 <h4>Cơ sở dữ liệu sử dụng</h4>
-![image](https://github.com/user-attachments/assets/a1eecac6-de7b-49f8-9667-e83445321afb)
+<img src="![image](https://github.com/user-attachments/assets/a1eecac6-de7b-49f8-9667-e83445321afb)" alt="database_image">
 
 <h4>Link Trang web: </h4>
 

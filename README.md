@@ -20,7 +20,7 @@
 <p>- Username: admin</p>
 <p>- Password: admin</p>
 
-<h4>Những cải tiến cho trang web</h4>
+<h4>Những cải tiến sau này cho trang web</h4>
 <ul>
   <li>Xây dựng giao diện và chức năng cho trang User</li>
   <li>Xây dựng trang Admin thêm chức năng sau: quản lý lịch thi, học phí và cảnh báo học vụ</li>

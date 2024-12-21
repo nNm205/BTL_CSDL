@@ -33,7 +33,7 @@
 
 <h4>Cách Chạy Ứng Dụng: </h4>
 <p>1. Clone Project</p>
-<p>```github
+<p>```bash
     git clone https://github.com/nNm205/BTL_CSDL.git 
     cd <repo>
 </p>

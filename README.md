@@ -15,9 +15,18 @@
 </ul>
 
 <h4>Công cụ đã sử dụng: </h4>
-<p>- </p>
-<p>- </p>
-<p>- </p>
+<p>- Frontend</p>
+<ul>
+  <li>HTML, CSS, Bootstrap</li>
+  <li>JavaScript</li>
+</ul>
+
+<p>- Backend</p>
+<ul>
+  <li>Spring Boot</li>
+  <li>Spring JPA</li>
+  <li>Hibernate</li>
+</ul>
 
 <h4>Cơ sở dữ liệu sử dụng</h4>
 <img src="https://github.com/user-attachments/assets/a1eecac6-de7b-49f8-9667-e83445321afb" alt="database_image">

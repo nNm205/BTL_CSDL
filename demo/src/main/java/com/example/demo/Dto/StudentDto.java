@@ -1,5 +1,6 @@
 package com.example.demo.Dto;
 
+import com.example.demo.obj.Student;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -36,6 +37,44 @@ public class StudentDto {
 
     @NotEmpty(message = "course field is required")
     private String course;
+
+    private String username;
+    private String password;
+
+    public StudentDto() {
+
+    }
+
+    public StudentDto(Student student) {
+        this.studentID = String.valueOf(student.getStudentID());
+        this.studentName = student.getStudentName();
+        this.gender = student.getGender();
+        this.address = student.getAddress();
+        this.phoneNumber = student.getPhoneNumber();
+        this.dateOfBirth = student.getDateOfBirth();
+        this.email = student.getEmail();
+        this.major = student.getMajor();
+        this.course = student.getCourse();
+        this.gpa = String.valueOf(student.getGpa());
+        this.username = String.valueOf(student.getStudentID());
+        this.password = String.valueOf(student.getStudentID());
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getMajor() {
         return major;

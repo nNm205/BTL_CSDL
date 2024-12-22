@@ -1,5 +1,6 @@
 package com.example.demo.obj;
 
+import com.example.demo.Dto.StudentDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -41,6 +42,76 @@ public class Student {
 
     @Column(name = "gpa", nullable = false)
     private double gpa;
+
+    private String username;
+    private String password;
+
+    public Student() {}
+
+    public Student(Long studentID, String studentName, LocalDate dateOfBirth,
+                   String email, String gender, String phoneNumber,
+                   String address, String major, String course, double gpa) {
+        this.studentID = studentID;
+        this.studentName = studentName;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.major = major;
+        this.course = course;
+        this.gpa = gpa;
+        this.username = String.valueOf(studentID);
+        this.password = String.valueOf(studentID);
+    }
+
+    public Student(Student otherStudent) {
+        this.studentID = otherStudent.getStudentID();
+        this.studentName = otherStudent.getStudentName();
+        this.dateOfBirth = otherStudent.getDateOfBirth();
+        this.gender = otherStudent.getGender();
+        this.phoneNumber = otherStudent.getPhoneNumber();
+        this.email = otherStudent.getEmail();
+        this.address = otherStudent.getAddress();
+        this.major = otherStudent.getMajor();
+        this.course = otherStudent.getCourse();
+        this.gpa = otherStudent.getGpa();
+        this.username = otherStudent.getUsername();
+        this.password = otherStudent.getPassword();
+    }
+
+    public Student(StudentDto studentDto) {
+        try {
+            this.studentID = Long.parseLong(studentDto.getStudentID());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        this.studentName = studentDto.getStudentName();
+        this.dateOfBirth = studentDto.getDateOfBirth();
+        this.gender = studentDto.getGender();
+        this.phoneNumber = studentDto.getPhoneNumber();
+        this.email = studentDto.getEmail();
+        this.address = studentDto.getAddress();
+        this.major = studentDto.getMajor();
+        this.course = studentDto.getCourse();
+        this.gpa = Double.parseDouble(studentDto.getGpa());
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public void setMajor(String major) {
         this.major = major;

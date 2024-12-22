@@ -13,6 +13,6 @@ function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('collapsed');
     const content = document.querySelector('.content');
-    content.style.marginLeft = sidebar.classList.contains('collapsed') ? '100px' : '250px';
+    content.style.marginLeft = sidebar.classList.contains('collapsed') ? '60px' : '250px';
 }
 

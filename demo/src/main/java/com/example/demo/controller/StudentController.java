@@ -24,7 +24,6 @@ public class StudentController {
     public String getStudentList(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "20") int size,
-            @RequestParam(value = "ajax", required = false) Boolean isAjax,
             Model model) {
         if (page <= 0) {
             page = 1;
@@ -70,32 +69,11 @@ public class StudentController {
             );
         }
 
-        Student student = new Student();
-        try {
-            student.setStudentID(Long.parseLong(studentDto.getStudentID()));
-        } catch(NumberFormatException e) {
-            bindingResult.addError(
-                    new FieldError("studentDto",
-                            "Student ID",
-                            studentDto.getStudentID(),
-                            false, null, null,
-                            "Invalid Student ID format")
-            );
-        }
+        Student student = new Student(studentDto);
 
         if (bindingResult.hasErrors()) {
             return "/students/create";
         }
-
-        student.setStudentName(studentDto.getStudentName());
-        student.setGender(studentDto.getGender());
-        student.setGpa(Float.parseFloat(studentDto.getGpa()));
-        student.setDateOfBirth(studentDto.getDateOfBirth());
-        student.setPhoneNumber(studentDto.getPhoneNumber());
-        student.setEmail(studentDto.getEmail());
-        student.setAddress(studentDto.getAddress());
-        student.setMajor(studentDto.getMajor());
-        student.setCourse(studentDto.getCourse());
 
         studentService.createStudent(student);
         redirectAttributes.addFlashAttribute("successMessage", "Tạo sinh viên mới thành công");
@@ -113,25 +91,14 @@ public class StudentController {
 
         model.addAttribute("student", student);
 
-        StudentDto studentDto = new StudentDto();
-        studentDto.setStudentID(String.valueOf(studentID));
-        studentDto.setStudentName(student.getStudentName());
-        studentDto.setGender(student.getGender() != null ? student.getGender() : "Nam");
-        studentDto.setGpa(String.valueOf(student.getGpa()));
-        studentDto.setDateOfBirth(student.getDateOfBirth());
-        studentDto.setPhoneNumber(student.getPhoneNumber());
-        studentDto.setEmail(student.getEmail());
-        studentDto.setAddress(student.getAddress());
-        studentDto.setMajor(student.getMajor());
-        studentDto.setCourse(student.getCourse());
+        StudentDto studentDto = new StudentDto(student);
 
         model.addAttribute("studentDto", studentDto);
         return "/students/edit";
     }
 
     @PostMapping("/edit/{studentID}")
-    public String editStudent(Model model,
-                              @PathVariable Long studentID,
+    public String editStudent(@PathVariable Long studentID,
                               @Valid @ModelAttribute("studentDto") StudentDto studentDto,
                               RedirectAttributes redirectAttributes) {
         Student student = studentService.findStudentByID(studentID);
@@ -139,10 +106,9 @@ public class StudentController {
             return "redirect:/students";
         }
 
-        System.out.println(studentDto.toString());
         student.setStudentName(studentDto.getStudentName());
         student.setGender(studentDto.getGender());
-        student.setGpa(Float.parseFloat(studentDto.getGpa()));
+        student.setGpa(Double.parseDouble(studentDto.getGpa()));
         student.setDateOfBirth(studentDto.getDateOfBirth());
         student.setPhoneNumber(studentDto.getPhoneNumber());
         student.setEmail(studentDto.getEmail());

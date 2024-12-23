@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class StudentRepository {
@@ -130,13 +129,13 @@ public class StudentRepository {
     // update student information
     public Student updateStudent(Student currentStudent) {
         String query = "UPDATE students " +
-                "SET student_name = ?," +
-                "gender = ?," +
-                "gpa = ?" +
+                "SET student_name = ?, " +
+                "gender = ?, " +
+                "gpa = ?, " +
                 "date_of_birth = ?," +
-                "phone_number = ?" +
-                "email = ?" +
-                "address = ?" +
+                "phone_number = ?, " +
+                "email = ?, " +
+                "address = ?, " +
                 "major = ?," +
                 "course = ?" +
                 "WHERE student_id = ?";
@@ -201,10 +200,6 @@ public class StudentRepository {
     public boolean isValidStudentID(long studentID) {
         String query = "SELECT * FROM students WHERE student_id = ?";
         SqlRowSet rows = jdbcTemplate.queryForRowSet(query, studentID);
-        if (rows.next()) {
-            return true;
-        } else {
-            return false;
-        }
+        return rows.next();
     }
 }

@@ -192,4 +192,10 @@ public class Student {
     public String getCourse() {
         return course;
     }
+
+    public String toString() {
+        return studentID + " " + studentName + " " + gender + " "
+             + dateOfBirth + " " + email + " " + phoneNumber + " "
+             + address + " " + major + " " + course + " " + gpa;
+    }
 }

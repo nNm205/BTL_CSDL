@@ -91,7 +91,19 @@ public class StudentController {
 
         model.addAttribute("student", student);
 
-        StudentDto studentDto = new StudentDto(student);
+        System.out.println(student.toString());
+        StudentDto studentDto = new StudentDto();
+        studentDto.setStudentID(String.valueOf(studentID));
+        studentDto.setStudentName(student.getStudentName());
+        studentDto.setGender(student.getGender());
+        studentDto.setDateOfBirth(student.getDateOfBirth());
+        studentDto.setEmail(student.getEmail());
+        studentDto.setPhoneNumber(student.getPhoneNumber());
+        studentDto.setAddress(student.getAddress());
+        studentDto.setMajor(student.getMajor());
+        studentDto.setCourse(student.getCourse());
+        studentDto.setGpa(String.valueOf(student.getGpa()));
+        System.out.println(studentDto.toString());
 
         model.addAttribute("studentDto", studentDto);
         return "/students/edit";
@@ -106,6 +118,7 @@ public class StudentController {
             return "redirect:/students";
         }
 
+        System.out.println(studentDto.toString());
         student.setStudentName(studentDto.getStudentName());
         student.setGender(studentDto.getGender());
         student.setGpa(Double.parseDouble(studentDto.getGpa()));
@@ -117,7 +130,9 @@ public class StudentController {
         student.setCourse(studentDto.getCourse());
 
         studentService.updateStudent(student);
-        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin sinh viên thành công!");
+        redirectAttributes
+                .addFlashAttribute("successMessage",
+                        "Cập nhật thông tin sinh viên thành công!");
         return "redirect:/students";
     }
 
@@ -125,16 +140,21 @@ public class StudentController {
     public String deleteStudent(@PathVariable Long studentID,
                                 RedirectAttributes redirectAttributes) {
         try {
-            studentService.deleteStudent(studentID);
-            redirectAttributes
-                    .addFlashAttribute("successMessage",
-                            "Xóa sinh viên thành công!");
+            boolean isDeleted = studentService.deleteStudent(studentID);
+            if (isDeleted) {
+                redirectAttributes.addFlashAttribute("successMessage",
+                        "Xóa dữ liệu sinh viên thành công!");
+            } else {
+                redirectAttributes.addFlashAttribute("errorMessage",
+                        "Không tìm thấy sinh viên để xóa!");
+            }
         } catch (Exception e) {
-            redirectAttributes
-                    .addFlashAttribute("errorMessage",
-                    "Không thể xóa sinh viên, vui lòng thử lại!");
+            System.err.println("Lỗi khi xóa sinh viên: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Xóa dữ liệu sinh viên thất bại. Vui lòng thử lại!");
         }
         return "redirect:/students";
     }
+
 }
 

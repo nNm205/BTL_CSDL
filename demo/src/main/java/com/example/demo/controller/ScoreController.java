@@ -121,8 +121,7 @@ public class ScoreController {
     }
 
     @PostMapping("/edit/{studentID}/{subjectID}")
-    public String editScore(Model model,
-                            @PathVariable Long studentID,
+    public String editScore(@PathVariable Long studentID,
                             @PathVariable Long subjectID,
                             @Valid @ModelAttribute("scoreDto") ScoreDto scoreDto,
                             RedirectAttributes redirectAttributes) {
@@ -144,8 +143,7 @@ public class ScoreController {
     }
 
     @GetMapping("/delete/{studentID}/{subjectID}")
-    public String deleteScore(Model model,
-                              @PathVariable Long studentID,
+    public String deleteScore(@PathVariable Long studentID,
                               @PathVariable Long subjectID,
                               RedirectAttributes redirectAttributes) {
         try {
@@ -157,7 +155,7 @@ public class ScoreController {
         } catch (Exception e) {
             redirectAttributes
                     .addFlashAttribute("errorMessage",
-                            "Không thể xóa dữ liệu điểm sinh viên, vui lòng thử lại!");
+                            "Xóa dữ liệu điểm thất bại. Vui lòng thử lại!");
         }
         return "redirect:/scores";
     }

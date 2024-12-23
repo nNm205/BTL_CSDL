@@ -4,6 +4,8 @@ import com.example.demo.obj.Student;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class StudentDto {
@@ -23,7 +25,7 @@ public class StudentDto {
     private String phoneNumber;
 
     @NotNull(message = "date of birth is required")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     @NotEmpty(message = "email field is required")
@@ -157,6 +159,6 @@ public class StudentDto {
     }
 
     public String toString() {
-        return studentID + " " + studentName + " " + gender + " " + address + " " + phoneNumber + " " + email + " " + gpa + " " + major + " " + course;
+        return studentID + " " + studentName + " " + gender + " " + dateOfBirth + " " + address + " " + phoneNumber + " " + email + " " + gpa + " " + major + " " + course;
     }
 }

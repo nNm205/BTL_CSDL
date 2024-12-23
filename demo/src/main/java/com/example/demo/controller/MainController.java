@@ -28,7 +28,7 @@ public class MainController {
             return "signin";
         }
 
-        if ("admin".equals(username) && "admin".equals(password)) {
+        if ("admin".equals(username.trim()) && "admin".equals(password.trim())) {
             return "main";
         } else {
             model.addAttribute("error", "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại!");
